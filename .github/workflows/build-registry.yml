@@ -1,0 +1,44 @@
+name: Build Registry
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'libraries/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'libraries/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Validate info.json files
+        run: |
+          for dir in libraries/*/; do
+            file="${dir}info.json"
+            if [ -f "$file" ]; then
+              echo "Validating $file"
+              jq empty "$file" || exit 1
+            fi
+          done
+
+      - name: Generate registry.json
+        run: |
+          chmod +x scripts/generate-registry.sh
+          ./scripts/generate-registry.sh
+
+      - name: Commit updated registry.json
+        if: github.event_name == 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add registry.json
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update registry.json"
+          git push
