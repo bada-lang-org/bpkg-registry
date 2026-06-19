@@ -2,7 +2,7 @@
   "registry_version": "1.0.0",
   "libraries": {
     "math": {
-      "url": "https://github.com/bada-lang-org/bada-lib-math",
+      "url": "https://github.com/bada-lang-org/bada-lib-math/archive/refs/tags/v1.0.0.tar.gz",
       "version": "1.0.0",
       "description": "Math utilities for Bada"
     }
