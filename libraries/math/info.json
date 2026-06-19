@@ -1,7 +1,8 @@
 {
   "name": "math",
-  "url": "https://github.com/bada-lang-org/bada-lib-math",
+  "url": "https://github.com/bada-lang-org/bada-lib-math/archive/refs/tags/v1.0.0.tar.gz",
   "version": "1.0.0",
   "description": "Math utilities for Bada",
-  "author": "@Natarizki"
+  "author": "@Natarizki",
+  "sha256": "abc123placeholder"
 }
